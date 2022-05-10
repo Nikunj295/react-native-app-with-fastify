@@ -4,6 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.0",
     "fastify": "^3.28.0",
     "mangadex-full-api": "^5.11.1"
   },

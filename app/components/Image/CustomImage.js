@@ -3,24 +3,22 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const CustomImage = ({ style = {}, imageStyles = {}, text, src }) => {
 	const navigation = useNavigation();
-	return (
-		src && (
-			<View style={defaultStyles.wrapper}>
-				<TouchableOpacity
-					onPress={() => {
-						navigation.navigate("DetailPage", {
-							itemId: parseInt(86 + Math.random() * 100),
-							otherParam: "anything you want here",
-						});
-					}}>
-					<View style={style}>
-						<Image source={{ uri: src }} style={imageStyles}></Image>
-					</View>
-					{text && <Text style={defaultStyles.title}>{text}</Text>}
-				</TouchableOpacity>
-			</View>
-		)
-	);
+	return src ? (
+		<View style={defaultStyles.wrapper}>
+			<TouchableOpacity
+				onPress={() => {
+					navigation.navigate("DetailPage", {
+						itemId: parseInt(86 + Math.random() * 100),
+						otherParam: "anything you want here",
+					});
+				}}>
+				<View style={style}>
+					<Image source={{ uri: src }} style={imageStyles}></Image>
+				</View>
+				{text && <Text style={defaultStyles.title}>{text}</Text>}
+			</TouchableOpacity>
+		</View>
+	) : null;
 };
 
 const defaultStyles = StyleSheet.create({

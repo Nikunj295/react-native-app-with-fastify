@@ -1,9 +1,10 @@
 const Fastify = require("fastify");
 const MFA = require("mangadex-full-api");
+require("dotenv").config();
 
 // let mangaInstance;
 const initialize = async () => {
-	await MFA.login("", "", "./");
+	await MFA.login("", process.env.PASSWORD, "./");
 };
 initialize();
 
@@ -12,20 +13,7 @@ const fastify = Fastify({
 });
 
 fastify.get("/:title", async (request, reply) => {
-	if (!request.params?.title) {
-		return reply.send({ code: "400", msg: "Need title", data: {} });
-	}
-	const mangaList = await MFA.Manga.search({
-		title: request.params?.title,
-		limit: 10, // API Max is 100 per request, but this function accepts more
-	});
-	const manga = await MFA.Manga.get("90043ed2-87d7-4a4c-b9a6-272445afe6af");
-	let chapters = await manga.getFeed({ translatedLanguage: ["en"] }, true);
-	// True means that related objects are returned with the base request
-	let chapter = chapters[0];
-	let pages = await chapter.getReadablePages();
-
-	reply.send({ hello: "world", pages });
+	reply.send({ hello: "world", manga });
 });
 
 // Run the server!
