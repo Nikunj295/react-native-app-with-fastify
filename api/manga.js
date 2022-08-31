@@ -12,3 +12,15 @@ export const getManga = async (limit = 10, offset = 1) => {
 		console.log("error", error);
 	}
 };
+
+export const getMangaById = async (id) => {
+	try {
+		if (!axiosInstance) {
+			return;
+		}
+		const response = await axios.get(`${base_url}manga/${id}/aggregate&includes[]=cover_art`);
+		return response.data;
+	} catch (error) {
+		console.log("error", error);
+	}
+};
