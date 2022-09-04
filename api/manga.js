@@ -18,8 +18,9 @@ export const getMangaById = async (id) => {
 		if (!axiosInstance) {
 			return;
 		}
-		const response = await axios.get(`${base_url}manga/${id}/aggregate&includes[]=cover_art`);
-		return response.data;
+		const response = await axios.get(`${base_url}manga/${id}?includes[]=artist&includes[]=author&includes[]=cover_art`);
+		const responseStatistics = await axios.get(`${base_url}statistics/manga/${id}`);
+		return { manga: response.data, statistics: responseStatistics.data };
 	} catch (error) {
 		console.log("error", error);
 	}
